@@ -30,4 +30,7 @@ public class Student {
         return age;
     }
 
+    private String show(String msg) {
+        return "展示了:" + msg;
+    }
 }

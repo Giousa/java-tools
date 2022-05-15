@@ -76,6 +76,9 @@ public class ReflexTest {
         Method getPubMethod = clazz.getMethod("getName");
         System.out.println("获取单个公共的方法： " + getPubMethod);
 
+        Method getPriMethodParam = clazz.getDeclaredMethod("show",String.class);
+        System.out.println("获取单个公有或私有的方法： " + getPriMethodParam);
+
         Method getPriMethod = clazz.getDeclaredMethod("getAge");
         System.out.println("获取单个公有或私有的方法： " + getPriMethod);
 
@@ -114,7 +117,7 @@ public class ReflexTest {
     public static void main(String[] args) throws Exception {
 //        getClassTest();
 //        getConstructorTest();
-//        getMethodTest();
-        getFiledTest();
+        getMethodTest();
+//        getFiledTest();
     }
 }
