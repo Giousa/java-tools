@@ -1,4 +1,4 @@
-package com.giousa.tools.design;
+package com.giousa.tools.design.proxy;
 
 public class MsgServiceImpl implements MsgService {
     @Override
