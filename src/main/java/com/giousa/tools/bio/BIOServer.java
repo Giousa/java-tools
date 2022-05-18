@@ -3,6 +3,7 @@ package com.giousa.tools.bio;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -51,9 +52,9 @@ public class BIOServer {
             try {
 
                 reader = new BufferedReader(
-                        new InputStreamReader(socket.getInputStream(), "UTF-8"));
+                        new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
                 writer = new PrintWriter(
-                        new OutputStreamWriter(socket.getOutputStream(), "UTF-8"));
+                        new OutputStreamWriter(socket.getOutputStream(), StandardCharsets.UTF_8));
                 String readMessage = null;
                 while (true) {
                     System.out.println("server reading... ");
