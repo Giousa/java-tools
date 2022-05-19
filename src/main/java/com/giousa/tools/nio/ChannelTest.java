@@ -10,11 +10,11 @@ public class ChannelTest {
 
     public static void main(String[] args) {
 //        write();
-//        read();
+        read();
 //        copyFile();
 //        scatter();
 //        transferFrom();
-        transferTo();
+//        transferTo();
     }
 
     /**
@@ -31,7 +31,7 @@ public class ChannelTest {
             FileOutputStream os = new FileOutputStream("src/main/resources/nio_channel/data04.txt");
             FileChannel osChannel = os.getChannel();
 
-            isChannel.transferTo(isChannel.position(),isChannel.size(),osChannel);
+            isChannel.transferTo(isChannel.position(), isChannel.size(), osChannel);
 
             isChannel.close();
             osChannel.close();
@@ -155,14 +155,42 @@ public class ChannelTest {
             FileChannel channel = is.getChannel();
 
             ByteBuffer buffer = ByteBuffer.allocate(10);
-            channel.read(buffer);
-
-//            System.out.println("读取："+new String(buffer.array()));
 
             //采用remaining方式，需要进行flip
-            buffer.flip();
-            String s = new String(buffer.array(), 0, buffer.remaining());
-            System.out.println("读取：" + s);
+//            channel.read(buffer);
+//            System.out.println("读取数量："+channel.read(buffer));
+//            buffer.flip();
+//            String s = new String(buffer.array(), 0, buffer.remaining());
+//            System.out.println("读取：" + s);
+
+            System.out.println("开始读取：");
+            StringBuffer sb = new StringBuffer();
+            int len = 0;
+//            while ((len = channel.read(buffer)) > 0) {
+//                buffer.flip();
+//                //注意：len不能少于缓冲区容量值，否则有可能读取的数据会少，这样结果就会缺失
+//                String s = new String(buffer.array(), 0, len);
+//                System.out.println("读取数据：" + s);
+//                sb.append(s);
+//                buffer.clear();
+//            }
+
+            while (true) {
+                len = channel.read(buffer);
+                System.out.println("读取数量：" + len);
+                if (len < 0) {
+                    break;
+                }
+                buffer.flip();
+                //注意：len不能少于缓冲区容量值，否则有可能读取的数据会少，这样结果就会缺失
+                String s = new String(buffer.array(), 0, len);
+                System.out.println("读取数据：" + s);
+                sb.append(s);
+                buffer.clear();
+            }
+
+            System.out.println("最终结果：");
+            System.out.println(sb.toString());
 
             channel.close();
         } catch (Exception e) {
