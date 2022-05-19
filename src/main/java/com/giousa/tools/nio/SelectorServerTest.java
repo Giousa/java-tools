@@ -27,18 +27,18 @@ public class SelectorServerTest {
             //轮询获取选择器上已经准备就绪的事件
             //select() 是一个阻塞方法，在没有通道事件会等待，有的通道事件触发，就>0
             System.out.println("NIO服务端启动成功！");
-            System.out.println("等待：");
+            System.out.println("等待连接：");
             while (selector.select() > 0) {
                 Iterator<SelectionKey> it = selector.selectedKeys().iterator();
                 while (it.hasNext()) {
                     SelectionKey sk = it.next();
                     //判断什么事件准备就绪
-
                     if (sk.isAcceptable()) {
                         //接收就绪，准备客户端连接
                         SocketChannel socketChannel = ssChannel.accept();
                         socketChannel.configureBlocking(false);
                         socketChannel.register(selector, SelectionKey.OP_READ);
+                        System.out.println("客户端接成功！");
                     } else if (sk.isReadable()) {
                         //可读准备就绪，开始读取数据
                         //参考：ChannelTest  read方法
