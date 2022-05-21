@@ -12,6 +12,9 @@ public class HttpServer {
 
     /**
      * 启动Tomcat、Jetty服务器，可以接收http协议
+     *
+     * Tomcat 四大Servlet容器
+     * engin Host Context Wrapper
      */
     public void start(String hostname, Integer port) {
 
@@ -24,17 +27,39 @@ public class HttpServer {
         Connector connector = new Connector();
         connector.setPort(port);
 
+        /**
+         * 可以理解为一个Tomcat，一个Tomcat一个engine
+         * 一个engin可以有多个Host
+         * List<Host> hosts
+         *
+         *
+         */
         StandardEngine engine = new StandardEngine();
         engine.setDefaultHost(hostname);
 
-
+        /**
+         * 一个Host表示一个虚拟服务器，可以给每个Host配置一个域名
+         * 一个Host可以有多个Context
+         * List<Context> contexts
+         */
         StandardHost host = new StandardHost();
         host.setName(hostname);
 
-        String contextPath = "";
+        /**
+         * 一个Context就是一个应用，一个项目
+         * 一个Context可以有多个Wrapper实例对象
+         * List<Wrapper> wrappers
+         *
+         */
         StandardContext context = new StandardContext();
+        String contextPath = "";
         context.setPath(contextPath);
         context.addLifecycleListener(new Tomcat.FixContextListener());
+
+        /**
+         * 一个Wrapper表示多个Servlet包装
+         * List<Servlet> servlets
+         */
 
         host.addChild(context);
         engine.addChild(host);
