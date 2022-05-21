@@ -99,7 +99,7 @@ public class MyClassLoader extends ClassLoader {
 
         Class<?> clazz = myClassLoader.loadClass("com.giousa.tools.classload.StudentInfo");
 
-        //因为MyClassLoader的父类是AppClassLoader
-        System.out.println("加载方式：" + clazz.getClassLoader());//AppClassLoader
+        System.out.println("加载方式：" + clazz.getClassLoader());//MyClassLoader
+
     }
 }
