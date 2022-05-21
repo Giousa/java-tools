@@ -9,7 +9,7 @@ public class Provider {
 
         //启动tomcat、jetty
         HttpServer httpServer = new HttpServer();
-        httpServer.start();
+        httpServer.start("localhost",9090);
 
         //启动netty
         DubboServer dubboServer = new DubboServer();
