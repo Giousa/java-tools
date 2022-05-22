@@ -4,14 +4,17 @@ package com.giousa.tools.classload;
 /**
  * 类加载器
  * <p>
+ * 引导类加载器
  * BootstrapClassLoad  加载class的目录：jre/lib
  * ↑
  * parent
  * ↑
+ * 拓展类加载器
  * ExtClassLoad        加载class的目录：jre/ext/lib
  * ↑
  * parent
  * ↑
+ * 系统类加载器
  * AppClassLoad        加载class的目录：classpath
  */
 public class ClassLoadTest {
