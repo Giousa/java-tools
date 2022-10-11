@@ -8,7 +8,9 @@ public class EnumMaskTest {
 
         PermissionFeature[] userPermission = new PermissionFeature[]{USER, QUERY, STAT};
         int features = PermissionFeature.of(userPermission);
+        System.out.println("打印权限begin：");
         printUserPersission(features);
+        System.out.println("打印权限end：");
 
         features = PermissionFeature.addFeature(features, ANALYSE);
         System.out.println("-------------------");

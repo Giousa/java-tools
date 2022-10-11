@@ -47,8 +47,9 @@ public enum PermissionFeature {
 
     PermissionFeature(String name) {
         this.name = name;
-        mask = (1 << ordinal());
-        System.out.println("初始化枚举值！ name： " + name + ",mask: " + mask);
+        int ordinal = ordinal();
+        mask = (1 << ordinal);
+        System.out.println("初始化枚举值！ name： " + name + ",mask: " + mask + ",ordinal: " + ordinal);
     }
 
     public final int mask;
@@ -70,8 +71,9 @@ public enum PermissionFeature {
      * @return
      */
     public static boolean isEnabled(int features, PermissionFeature feature) {
-        System.out.println("判断当前枚举是否符合：featureName: " + feature.name + ",features: " + features + ",mask: " + feature.mask);
-        return (features & feature.mask) != 0;
+        boolean flag = (features & feature.mask) != 0;
+        System.out.println("判断当前枚举是否符合：featureName: " + feature.name + ",features: " + features + ",mask: " + feature.mask + ",是否符合: "+flag);
+        return flag;
     }
 
     public static int of(PermissionFeature[] features) {
