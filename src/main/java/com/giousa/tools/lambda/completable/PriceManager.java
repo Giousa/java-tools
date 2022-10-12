@@ -5,7 +5,7 @@ import java.util.UUID;
 public class PriceManager {
 
     public static PriceResult computeRealPrice(int total, int discounts) {
-        System.out.println("PriceManager computeRealPrice. total: " + total + ",discounts: " + discounts);
+        System.out.println("PriceManager computeRealPrice. total: " + total + ",discounts: " + discounts+"，thread: "+Thread.currentThread().getName());
         return computeRealPrice(total, discounts, UUID.randomUUID().toString());
     }
 

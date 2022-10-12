@@ -73,13 +73,14 @@ public class ZMainTest {
      * 方式3： CompletableFuture方式  耗时: 1305
      */
     private static void test03() {
-        // 获取并计算某宝的最终价格
+        // 获取并计算某宝的最终价格 thread: ForkJoinPool.commonPool-worker-6
         CompletableFuture<PriceResult> jdFuture = CompletableFuture.supplyAsync(() -> JDManager.getPrice()).thenCombine(CompletableFuture.supplyAsync(() -> JDManager.getDiscounts()), PriceManager::computeRealPrice);
-        // 获取并计算某宝的最终价格
+        // 获取并计算某宝的最终价格 thread: ForkJoinPool.commonPool-worker-3
         CompletableFuture<PriceResult> pddFuture = CompletableFuture.supplyAsync(() -> PDDManager.getPrice()).thenCombine(CompletableFuture.supplyAsync(() -> PDDManager.getDiscounts()), PriceManager::computeRealPrice);
-        // 获取并计算某宝的最终价格
+        // 获取并计算某宝的最终价格 thread: ForkJoinPool.commonPool-worker-1
         CompletableFuture<PriceResult> tbFuture = CompletableFuture.supplyAsync(() -> TBManager.getPrice()).thenCombine(CompletableFuture.supplyAsync(() -> TBManager.getDiscounts()), PriceManager::computeRealPrice);
 
+        //上面三个方法，是在不同的线程下同步执行的。
         // 排序并获取最低价格
         PriceResult priceResult = Stream.of(jdFuture, pddFuture, tbFuture).map(CompletableFuture::join).sorted(Comparator.comparingInt(PriceResult::getRealPrice)).findFirst().get();
 
@@ -154,6 +155,7 @@ public class ZMainTest {
         List<String> list = Lists.newArrayList("猫", "大熊猫", "企鹅", "罗斯福麋鹿");
 
         // 先触发各自平台的并行处理
+        System.out.println("CompletableFuture start");
         List<CompletableFuture<PriceResult>> completableFutures = list.stream()
                 .map(product ->
                         CompletableFuture.supplyAsync(() -> ProductManager.getPrice(product))
@@ -161,7 +163,8 @@ public class ZMainTest {
                                         CompletableFuture.supplyAsync(() -> ProductManager.getDiscounts(product)),
                                         PriceManager::computeRealPrice))
                 .collect(Collectors.toList());
-
+        System.out.println("CompletableFuture end");
+        //start -> end 直接基本上没有耗时，耗时是在执行以下get的时候开始请求。
         // 在独立的流中，等待所有并行处理结束，做最终结果处理
         PriceResult priceResult = completableFutures.stream()
                 .map(CompletableFuture::join)
