@@ -46,7 +46,7 @@ public class MainRunnableTest {
         RunnableTest r2 = new RunnableTest("thread-other");
 
         r1.start();
-//        r2.start();
+        r2.start();
 //        r2.start();
 //        r1.start();
 
