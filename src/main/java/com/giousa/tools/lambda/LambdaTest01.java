@@ -1,17 +1,58 @@
 package com.giousa.tools.lambda;
 
+import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Function;
 
 public class LambdaTest01 {
 
     public static void main(String[] args) {
 //        test01();
-        test02();
+//        test02();
+        test03();
+    }
+
+
+    private static void sendMsg(Long id, String name, String user, Function<FunctionUser, FunctionUser> function) {
+
+        if (Objects.isNull(user) || StringUtils.isBlank(user)) {
+            System.out.println("user不能为空");
+            return;
+        }
+
+        FunctionUser functionUser = function.apply(JSON.parseObject(user, FunctionUser.class));
+        if (Objects.isNull(functionUser)) {
+            System.out.println("数据解析失败");
+            return;
+        }
+
+        System.out.println("解析后数据：" + JSON.toJSONString(functionUser));
+    }
+
+    private static void test03() {
+        Long id = 11L;
+        String name = "不笑猫";
+        FunctionUser user = new FunctionUser();
+        user.setUsername("测试用户");
+        user.setAge(12);
+        user.setUrl("http://giousa.com/getUserById?id={id}&name={name}");
+
+        System.out.println("解析前数据：" + JSON.toJSONString(user));
+
+        sendMsg(id, name, JSON.toJSONString(user), functionUser -> {
+            if (StringUtils.isBlank(functionUser.getUrl())) {
+                return null;
+            }
+
+            functionUser.setUrl(StringUtils.replaceEach(functionUser.getUrl(), new String[]{"{id}", "{name}"}, new String[]{Objects.toString(id), name}));
+
+            return functionUser;
+        });
     }
 
     private static void test02() {
@@ -33,7 +74,7 @@ public class LambdaTest01 {
                 break;
             }
 
-            if(Objects.nonNull(index) && StringUtils.isNotBlank(name)){
+            if (Objects.nonNull(index) && StringUtils.isNotBlank(name)) {
                 break;
             }
         }
