@@ -2,6 +2,18 @@ package com.giousa.tools.reflex;
 
 public class Student {
 
+    static {
+        System.out.println("Student 执行了【静态代码块】");
+    }
+
+    //静态变量
+    private static String staticMethod = getStaticMethod();
+
+    public static String getStaticMethod(){
+        System.out.println("Student 执行【静态方法】");
+        return "这个是静态方法";
+    }
+
     public String name;
 
     private Integer age;
