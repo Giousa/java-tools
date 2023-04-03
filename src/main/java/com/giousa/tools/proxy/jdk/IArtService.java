@@ -1,4 +1,4 @@
-package com.giousa.tools.proxy;
+package com.giousa.tools.proxy.jdk;
 
 public interface IArtService {
 
