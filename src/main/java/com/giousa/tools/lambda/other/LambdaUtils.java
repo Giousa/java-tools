@@ -2,6 +2,7 @@ package com.giousa.tools.lambda.other;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -46,7 +47,7 @@ public class LambdaUtils {
 
     public static void handlerConsumer(List<Apple> list, Consumer<Apple> c) {
         for (Apple t : list) {
-            if(t.getPrice() > 20){
+            if (t.getPrice() > 20) {
                 System.out.println("t-> 经过了Consumer转化处理");
                 c.accept(t);
             }
@@ -65,4 +66,21 @@ public class LambdaUtils {
         }
         return result;
     }
+
+    public static void recycleByFunctionV2(List<Apple> list, Function<List<Apple>, Boolean> function) {
+        if(function.apply(list)){
+            System.out.println("function.apply Boolean is true success");
+            return;
+        }
+        System.out.println("function.apply Boolean is true fail");
+    }
+
+    public static void recycleByFunctionV3(List<Apple> list, Function<List<Apple>, String> function) {
+        if(Objects.equals(function.apply(list),"SUCCESS")){
+            System.out.println("function.apply String is true success");
+            return;
+        }
+        System.out.println("function.apply String is true fail");
+    }
+
 }

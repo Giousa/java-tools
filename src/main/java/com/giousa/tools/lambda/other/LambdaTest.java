@@ -29,7 +29,15 @@ public class LambdaTest {
 //        System.out.println("apples1 >>>> "+apples1);
 
 //        LambdaUtils.modifyByConsumer(appleList,c -> c.setName("前缀："+c.getName()));
-        LambdaUtils.handlerConsumer(appleList,c -> c.setName("前缀: "+c.getName()));
+//        LambdaUtils.handlerConsumer(appleList,c -> c.setName("前缀: "+c.getName()));
+
+        LambdaUtils.recycleByFunctionV2(appleList,list -> {
+            if(appleList.size() > 5){
+                return false;
+            }
+            return true;
+        });
+
         System.out.println("appleList >>>> "+appleList);
 
     }
