@@ -17,7 +17,7 @@ public class JTextAreaTest {
         JScrollPane jPanel = new JScrollPane();
         JTextArea jTextArea = new JTextArea();
         jTextArea.setText("111111111111\n1222222222233\n4332122223454");
-        jTextArea.setPreferredSize(new Dimension(500, 400));
+//        jTextArea.setPreferredSize(new Dimension(500, 400));
         jPanel.setViewportView(jTextArea);
         jPanel.setPreferredSize(new Dimension(500,400));
 
