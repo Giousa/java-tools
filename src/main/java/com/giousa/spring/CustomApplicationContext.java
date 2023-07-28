@@ -95,7 +95,7 @@ public class CustomApplicationContext {
                 //com/giousa/spring/UserService
                 System.out.println("扫描的文件 类路径：" + className);
                 className = className.replace("/", ".");
-
+                System.out.println("className = "+className);
                 try {
                     Class clazz = CustomApplicationContext.class.getClassLoader().loadClass(className);
                     if (clazz.isAnnotationPresent(Component.class)) {
