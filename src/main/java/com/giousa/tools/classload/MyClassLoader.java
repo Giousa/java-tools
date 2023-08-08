@@ -25,10 +25,14 @@ public class MyClassLoader extends ClassLoader {
      */
     @Override
     public Class<?> loadClass(String name) {
+        System.out.println("++++++++++++++++++++++++++++");
+        System.out.println("++++++++++++++++++++++++++++");
+        System.out.println("++++++++++++++++++++++++++++");
         System.out.println("loadClass. name: " + name);
 
         //使用extClassLoad
         ClassLoader classLoader = getSystemClassLoader().getParent();
+        System.out.println("loadClass. classLoader: "+ classLoader);
 
         Class<?> clazz = null;
         try {
@@ -94,12 +98,11 @@ public class MyClassLoader extends ClassLoader {
      */
     private static void test01() throws Exception {
         System.out.println("MyClassLoader.class.getClassLoader() = " + MyClassLoader.class.getClassLoader());
-
+        System.out.println("==========================");
         MyClassLoader myClassLoader = new MyClassLoader(MyClassLoader.class.getClassLoader());
-
+        System.out.println("==========================");
         Class<?> clazz = myClassLoader.loadClass("com.giousa.tools.classload.StudentInfo");
-
+        System.out.println("==========================");
         System.out.println("加载方式：" + clazz.getClassLoader());//MyClassLoader
-
     }
 }
