@@ -1,22 +1,21 @@
 package com.giousa.swing.base;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
+import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import java.io.File;
 
-public class JFileTest {
+public class JFileV2Test {
 
     public static void main(String[] args) {
         try {
-            UIManager.setLookAndFeel("com.jtattoo.plaf.aero.AeroLookAndFeel");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (InstantiationException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        } catch (UnsupportedLookAndFeelException e) {
-            throw new RuntimeException(e);
+//            UIManager.setLookAndFeel("com.jtattoo.plaf.aero.AeroLookAndFeel");
+            LookAndFeel lookAndFeel = new NimbusLookAndFeel();
+            UIManager.setLookAndFeel(lookAndFeel);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return;
         }
 //                JFrame.setDefaultLookAndFeelDecorated(true);
         // 创建及设置窗口
@@ -30,14 +29,23 @@ public class JFileTest {
             System.out.println("桌面路径: " + fsv.getHomeDirectory()); //得到桌面路径
             String path = fsv.getHomeDirectory().getPath();
 
-            path = "/Users/zhangmengmeng/Desktop/ftl_temp_file";
+            path = "/Users/zhangmengmeng/Downloads/other/开药门诊标签账号.xlsx";
+
             JFileChooser fileChooser = new JFileChooser(path);
 
-//            fileChooser.setCurrentDirectory(fsv.getHomeDirectory());
-            fileChooser.setDialogTitle("选择存储目录");
-            fileChooser.setApproveButtonText("确定");
-            fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-            int result = fileChooser.showOpenDialog(btn);
+            //后缀名过滤器
+            FileNameExtensionFilter filter1 = new FileNameExtensionFilter(
+                    "*.xls", "xls");
+            FileNameExtensionFilter filter2 = new FileNameExtensionFilter(
+                    "*.xlsx", "xlsx");
+            fileChooser.setFileFilter(filter1);
+            fileChooser.setFileFilter(filter2);
+
+
+            fileChooser.setDialogTitle("选择Excel文件");
+            fileChooser.setApproveButtonText("确定1111111");
+            fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            int result = fileChooser.showOpenDialog(null);
             if (JFileChooser.APPROVE_OPTION == result) {
                 File selectedFile = fileChooser.getSelectedFile();
                 System.out.println("选择路径： " + selectedFile.getPath());

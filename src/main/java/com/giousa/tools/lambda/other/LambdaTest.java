@@ -2,6 +2,7 @@ package com.giousa.tools.lambda.other;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class LambdaTest {
 
@@ -18,12 +19,12 @@ public class LambdaTest {
                 new Apple("大苹果", "Red", 250d, 56d));
 
 
-//        List<Apple> apples = PredicateUtils.filterByPredicate(appleList, new Predicate<Apple>() {
-//            @Override
-//            public boolean test(Apple apple) {
-//                return apple.getWeight() > 150;
-//            }
-//        });
+        List<Apple> apples = LambdaUtils.filterByPredicate(appleList, new Predicate<Apple>() {
+            @Override
+            public boolean test(Apple apple) {
+                return apple.getWeight() > 150;
+            }
+        });
 
 //        List<Apple> apples1 = LambdaUtils.filterByPredicate(appleList, apple -> apple.getWeight() > 150);
 //        System.out.println("apples1 >>>> "+apples1);
